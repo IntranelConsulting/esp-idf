@@ -14,6 +14,8 @@ COMPONENTS := esptool_py bootloader_support log spi_flash micro-ecc soc main
 CFLAGS =
 CXXFLAGS =
 
+CFLAGS += -fno-lto
+
 #We cannot include the esp32 component directly but we need its includes.
 CFLAGS += -I $(IDF_PATH)/components/esp32/include
 

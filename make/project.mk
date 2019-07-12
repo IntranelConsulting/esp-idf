@@ -277,7 +277,9 @@ LDFLAGS ?= -nostdlib \
 	-lstdc++ \
 	-lgcov \
 	-Wl,--end-group \
-	-Wl,-EL
+	-Wl,-EL \
+	-flto \
+	-Wl,--gc-sections
 
 # Set default CPPFLAGS, CFLAGS, CXXFLAGS
 # These are exported so that components can use them when compiling.
@@ -344,9 +346,9 @@ endif
 
 # Optimization flags are set based on menuconfig choice
 ifdef CONFIG_OPTIMIZATION_LEVEL_RELEASE
-OPTIMIZATION_FLAGS = -Os
+OPTIMIZATION_FLAGS = -Os -flto
 else
-OPTIMIZATION_FLAGS = -Og
+OPTIMIZATION_FLAGS = -Og -flto
 endif
 
 ifdef CONFIG_OPTIMIZATION_ASSERTIONS_DISABLED
@@ -412,7 +414,7 @@ export HOSTCC HOSTLD HOSTAR HOSTOBJCOPY SIZE
 CC := $(call dequote,$(CONFIG_TOOLPREFIX))gcc
 CXX := $(call dequote,$(CONFIG_TOOLPREFIX))c++
 LD := $(call dequote,$(CONFIG_TOOLPREFIX))ld
-AR := $(call dequote,$(CONFIG_TOOLPREFIX))ar
+AR := $(call dequote,$(CONFIG_TOOLPREFIX))gcc-ar
 OBJCOPY := $(call dequote,$(CONFIG_TOOLPREFIX))objcopy
 SIZE := $(call dequote,$(CONFIG_TOOLPREFIX))size
 export CC CXX LD AR OBJCOPY SIZE
