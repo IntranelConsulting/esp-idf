@@ -78,4 +78,4 @@ COMPONENT_EXTRA_CLEAN := esp32_out.ld
 stack_check.o: CFLAGS := $(filter-out -fstack-protector%, $(CFLAGS))
 cpu_start.o: CFLAGS := $(filter-out -fstack-protector%, $(CFLAGS))
 
-panic.o dbg_stubs.o stack_check.o ipc.o wifi_init.o reset_reason.o: CFLAGS += -fno-lto
+panic.o dbg_stubs.o stack_check.o ipc.o wifi_init.o reset_reason.o intr_alloc.o: CFLAGS += -fno-lto

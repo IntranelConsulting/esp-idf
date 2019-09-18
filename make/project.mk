@@ -346,9 +346,9 @@ endif
 
 # Optimization flags are set based on menuconfig choice
 ifdef CONFIG_OPTIMIZATION_LEVEL_RELEASE
-OPTIMIZATION_FLAGS = -Os -flto
+OPTIMIZATION_FLAGS = -Os #-flto
 else
-OPTIMIZATION_FLAGS = -Og -flto
+OPTIMIZATION_FLAGS = -Og #-flto
 endif
 
 ifdef CONFIG_OPTIMIZATION_ASSERTIONS_DISABLED
