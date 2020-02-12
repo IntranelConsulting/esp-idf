@@ -254,6 +254,15 @@ static esp_err_t httpd_server_init(struct httpd_data *hd)
         .sin6_port    = htons(hd->config.server_port)
     };
 
+#ifdef CONFIG_LWIP_SO_REUSE
+    int enable = 1;
+    if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(enable)) < 0) {
+        ESP_LOGE(TAG, LOG_FMT("error in setsockopt (%d)"), errno);
+        close(fd);
+        return ESP_FAIL;
+    }
+#endif
+
     int ret = bind(fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
     if (ret < 0) {
         ESP_LOGE(TAG, LOG_FMT("error in bind (%d)"), errno);
